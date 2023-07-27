@@ -19,4 +19,40 @@ router.get('/', auth_middleware, async(req, res) => {
   }
 })
 
+
+router.post('/', auth_middleware, async (req, res) => {
+  try {
+    const user_id = req.user_id
+    const {cpf, description, point, value, status} = req.body
+    if (!cpf || !description || !point || !value || !status) {
+      return res.send({
+        success: false,
+        message: 'Please fill the fields',
+      })
+    } else {
+      const result = await db('transactions').insert({
+        cpf, description, point, value, status, user_id
+      })
+      const data = await db('transactions').select('*').where('id', result[0]).first()
+      if (result) {
+        return res.send({
+          success: true,
+          data,
+          message: 'Registration Successfull'
+        })              
+      } else {
+        return res.send({
+          success: false,
+          message: 'Some problem occurred'
+        })    
+      }
+    }
+  } catch (e) {
+    return res.send({
+      success: false,
+      message: e.message,
+    })
+  }
+})
+
 module.exports = router
