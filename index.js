@@ -12,6 +12,8 @@ app.get('/', async (req, res) => {
   })
 })
 
+app.use('/api/users', require('./routes/users'))
+
 app.listen(port, () => {
   console.log(`Connection successfully on port ${port}`)
 })
