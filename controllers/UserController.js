@@ -1,3 +1,5 @@
+const db = require('../db')
+
 module.exports = {
   async me(req, res) {
     try {
