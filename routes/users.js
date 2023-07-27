@@ -92,5 +92,20 @@ router.post('/login', async (req, res) => {
   }
 })
 
+router.get('/me', auth_middleware, async(req, res) => {
+  try {
+    const user_id = req.user_id
+    const user = await db('users').select('*').where('id', user_id).first();
+    return res.send({
+      success: true,
+      user,
+    })
+  } catch (e) {
+    return res.send({
+      success: false,
+      message: e.message
+    })
+  }
+})
 
 module.exports = router
