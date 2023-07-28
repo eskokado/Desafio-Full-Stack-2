@@ -6,11 +6,11 @@
 module.exports = {
   client: 'mysql',
   connection: {
-    host: '127.0.0.1',
-    port: 3306,
-    user: 'root',
-    password: 'root',
-    database: 'db_next_tests'
+    host: process.env.HOST,
+    port: process.env.PORT,
+    user: process.env.USER_NAME,
+    password: process.env.PASSWORD,
+    database: process.env.DATABASE
   },
   migrations: {
     directory: './migrations',
