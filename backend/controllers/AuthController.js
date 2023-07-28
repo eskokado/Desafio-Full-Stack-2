@@ -18,17 +18,16 @@ module.exports = {
             const user_id = { user_id: user.id }
             const token = jwt.sign(user_id, "secretOrPrivateKey")
             return res.status(200).send({
-              success: true,
               token: token,
               message: 'Account login successfully',
             })  
           } else {
-            return res.status(404).send({
+            return res.status(400).send({
               message: "Email ou password invalid"
             })  
           }
         } else {
-          return res.status(404).send({
+          return res.status(400).send({
             message: 'Email ou password invalid'
           })    
         }

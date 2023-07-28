@@ -21,7 +21,7 @@ module.exports = {
     try {
       const { name, email, password } = req.body
       if (!name || !email || !password) {
-        return res.status(404).send({
+        return res.status(400).send({
           message: 'Please fill the fields'
         })
       } else {
@@ -45,14 +45,14 @@ module.exports = {
               message: 'Registration Successfull'
             })              
           } else {
-            return res.status(404).send({
+            return res.status(400).send({
               message: 'Some problem occurred'
             })    
           }
         }
       }
     } catch (e) {
-      return res.status(404).send({
+      return res.status(500).send({
         message: e.message
       })
     }
