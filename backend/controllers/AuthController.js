@@ -15,8 +15,8 @@ module.exports = {
         if (user) {
           const is_valid = await bcryptjs.compare(password, user.password)
           if (is_valid) {
-            const user_id = { user_id: user.id }
-            const token = jwt.sign(user_id, "secretOrPrivateKey")
+            const user_id = user.id 
+            const token = jwt.sign({ user_id, email }, process.env.TOKEN_KEY)
             return res.status(200).send({
               token: token,
               message: 'Account login successfully',

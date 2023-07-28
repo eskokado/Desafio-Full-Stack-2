@@ -38,7 +38,7 @@ module.exports = {
             password: hash_password,
           })
           const user_id = { user_id: result }
-          const token = jwt.sign(user_id, "secretOrPrivateKey")
+          const token = jwt.sign(user_id, process.env.TOKEN_KEY)
           if (result) {
             return res.status(201).send({
               token: token,
