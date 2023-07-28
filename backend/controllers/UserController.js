@@ -27,7 +27,7 @@ module.exports = {
       } else {
         const is_email = await db('users').select('email').where({ email: email }).first().then((row) => row)
         if (is_email) {
-          return res.status(400).send({
+          return res.status(409).send({
             message: 'Email already Exists'
           })  
         } else {
