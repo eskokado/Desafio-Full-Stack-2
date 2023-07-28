@@ -5,14 +5,13 @@ const db = require('../db')
 module.exports = {
   async me(req, res) {
     try {
-      const user_id = req.user_id
-      const user = await db('users').select('*').where('id', user_id).first();
+      const user = await db('users').select('*').where('id', req.user.id).first();
       delete user.password
       return res.status(200).send({
         user,
       })
     } catch (e) {
-      return res.send({
+      return res.status(500).send({
         message: e.message
       })
     }
@@ -25,7 +24,7 @@ module.exports = {
           message: 'Please fill the fields'
         })
       } else {
-        const is_email = await db('users').select('email').where({ email: email }).first().then((row) => row)
+        const is_email = await db('users').select('email').where({ email: email }).first()
         if (is_email) {
           return res.status(409).send({
             message: 'Email already Exists'

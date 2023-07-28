@@ -12,18 +12,14 @@ const auth_middleware = async(req, res, next) => {
           message: 'User not found',
         })
       }
-      req.user_id = user_id
-      req.email = email
-      req.type = type
+      req.user = existsUser
     } catch (e) {
-      return res.send({
-        success: false,
+      return res.status(500).send({
         message: e.message,
       })
     }
   } else {
-    return res.send({
-      success: false,
+    return res.status(403).send({
       message: 'UnAuthorized'
     })
   }
