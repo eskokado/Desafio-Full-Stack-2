@@ -20,6 +20,7 @@ module.exports = {
             const token = jwt.sign({ user_id, email, type }, process.env.TOKEN_KEY)
             return res.status(200).send({
               token: token,
+              user: user,
               message: 'Account login successfully',
             })  
           } else {
