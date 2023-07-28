@@ -19,7 +19,7 @@ module.exports = {
   }, 
   async create (req, res) {
     try {
-      const { name, email, password } = req.body
+      const { name, email, password, type } = req.body
       if (!name || !email || !password) {
         return res.status(400).send({
           message: 'Please fill the fields'
@@ -36,6 +36,7 @@ module.exports = {
             name,
             email,
             password: hash_password,
+            type: type ?? 'User',
           })
           const user_id = { user_id: result }
           const token = jwt.sign(user_id, process.env.TOKEN_KEY)
