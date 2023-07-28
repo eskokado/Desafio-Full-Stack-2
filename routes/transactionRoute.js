@@ -5,6 +5,7 @@ const TransactionController = require('../controllers/TransactionController')
 const router = express.Router()
 
 router.get('/', auth_middleware, TransactionController.index)
+router.post('/', auth_middleware, TransactionController.create)
 
 module.exports = router
 

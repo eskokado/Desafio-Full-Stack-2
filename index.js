@@ -12,9 +12,8 @@ app.get('/', async (req, res) => {
   })
 })
 
-app.use('/api/transactions', require('./routes/transactions'))
-app.use('/api/users', require('./routes/userRoute'))
 app.use('/api/auth', require('./routes/authRoute'))
+app.use('/api/users', require('./routes/userRoute'))
 app.use('/api/transactions', require('./routes/transactionRoute'))
 
 app.listen(port, () => {
