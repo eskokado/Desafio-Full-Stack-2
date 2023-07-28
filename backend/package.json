@@ -4,6 +4,8 @@
   "description": "Olá, se você recebeu esse teste é porque gostamos do seu perfil, e está a poucos  passos de fazer parte do nosso time!",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
