@@ -3,14 +3,7 @@ const db = require('../db')
 module.exports = {
   async index(req, res) {
     try {
-      const user_id = req.user_id
-      const existsUser = await db('users').select('*').where('id', user_id).first()
-      if (!existsUser) {
-        return res.status(404).send({
-          message: 'User not found',
-        })
-      }
-      const transactions = await db('transactions').select('*').where('user_id', user_id)
+      const transactions = await db('transactions').select('*').where('user_id', req.user_id)
       return res.status(200).send({
         transactions
       })
@@ -30,12 +23,6 @@ module.exports = {
           message: 'Please fill the fields',
         })
       } else {
-        const existsUser = await db('users').select('*').where('id', user_id).first()
-        if (!existsUser) {
-          return res.status(404).send({
-            message: 'User not found',
-          })
-        }
         const result = await db('transactions').insert({
           cpf, description, point, value, status: status ?? 'Em avaliação', user_id
         })
