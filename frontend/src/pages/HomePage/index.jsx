@@ -3,6 +3,8 @@ import { StyledHomePage } from "./styles";
 import { Container } from "../../styles/container";
 import { UserContext } from '../../contexts/UserContext'
 import { Navbar } from '../../components/Navbar'
+import { Header } from '../../components/Header'
+import { MainHome } from './components/MainHome'
 
 export const HomePage = () => {
   const { onLogout, loading } = useContext(UserContext);
@@ -20,8 +22,10 @@ export const HomePage = () => {
       </section>
       <section>
         <Container>
+          <Header />
         </Container>
       </section>
+      <MainHome />
     </StyledHomePage>
   )
 }
