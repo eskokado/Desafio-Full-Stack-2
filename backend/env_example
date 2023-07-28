@@ -1,0 +1,6 @@
+TOKEN_KEY=secretOrPrivateKey
+HOST=127.0.0.1
+PORT=3306
+USER_NAME=user
+PASSWORD=password
+DATABASE=database
