@@ -5,7 +5,7 @@ const auth_middleware = async(req, res, next) => {
   const token = req.headers.user_access_token
   if (token) {
     try {
-      const { user_id, email } = jwt.verify(token, process.env.TOKEN_KEY)
+      const { user_id, email, type } = jwt.verify(token, process.env.TOKEN_KEY)
       const existsUser = await db('users').select('*').where('id', user_id).where('email', email).first()
       if (!existsUser) {
         return res.status(404).send({
@@ -14,6 +14,7 @@ const auth_middleware = async(req, res, next) => {
       }
       req.user_id = user_id
       req.email = email
+      req.type = type
     } catch (e) {
       return res.send({
         success: false,
