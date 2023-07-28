@@ -27,8 +27,8 @@ module.exports = {
             })  
           }
         } else {
-          return res.status(400).send({
-            message: 'Email ou password invalid'
+          return res.status(404).send({
+            message: 'User not found'
           })    
         }
       }
