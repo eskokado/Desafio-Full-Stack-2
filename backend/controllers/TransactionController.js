@@ -3,7 +3,25 @@ const db = require('../db')
 module.exports = {
   async index(req, res) {
     try {
-      const transactions = await db('transactions').select('*').where('user_id', req.user_id)
+      const dataFrom = req.query.dataFrom
+      const dataTo = req.query.dataTo
+      const valueFrom = req.query.valueFrom
+      const valueTo = req.query.valueTo
+      const status = req.query.status 
+      const cpf = req.query.cpf
+      const description = req.query.description
+      const transactions = await db('transactions').select('*').where((builder) => {
+        if ((dataFrom) && (dataTo) && (dataTo >= dataFrom)) 
+          builder.whereBetween('date', [dataFrom, dataTo])           
+        if (status) builder.where('status', status)
+        if (req.user.type === 'User') {
+          builder.where('user_id', req.user.id)  
+        } else {
+          if (cpf) builder.where('cpf', cpf)
+          if (description) builder.whereRaw('LOWER(description) LIKE LOWER(?)', [`%${description}%`])
+          if ((valueFrom) && (valueTo) && (valueTo >= valueFrom))  builder.whereBetween('value', [valueFrom, valueTo])
+        }        
+      })
       return res.status(200).send({
         transactions
       })
@@ -16,7 +34,7 @@ module.exports = {
   },
   async create(req, res) {
     try {
-      const user_id = req.user_id
+      const user_id = req.user.id
       const {cpf, description, point, value, status} = req.body
       if (!cpf || !description || !point || !value) {
         return res.status(400).send({
