@@ -4,6 +4,7 @@ import { createContext } from "react";
 import { toast } from "react-toastify";
 import { api } from "../services/api";
 import { UserContext } from "./UserContext";
+import { removeMaskCurrency, removeMaskInt } from '../shared/utils/removeMasks'
 
 export const TransactionContext = createContext()
 
@@ -25,6 +26,12 @@ export const TransactionProvider = ({ children }) => {
     const token = localStorage.getItem("@NEX_TOKEN");
     api.defaults.headers.user_access_token = `${token}`;
     setLoading(true);
+
+    if (data?.valueFrom && data?.valueTo) {
+      data.valueFrom = removeMaskCurrency(data.valueFrom)    
+      data.valueTo = removeMaskCurrency(data.valueTo)    
+      console.log("onListTransaction", data)
+    }
     try {
       const response = await api.get("/transactions", { params: data });
       setTransactions(response.data.transactions);
@@ -37,8 +44,12 @@ export const TransactionProvider = ({ children }) => {
   };
 
   const onCreateTransaction = async (data) => {
-    const token = localStorage.getItem("@NEX_TOKEN");
-    api.defaults.headers.user_access_token = `${token}`;
+    const token = localStorage.getItem("@NEX_TOKEN")
+    api.defaults.headers.user_access_token = `${token}`
+
+    data.value = removeMaskCurrency(data.value)    
+    data.point = removeMaskInt(data.point)
+
     setLoading(true);
     try {
       await toast.promise(api.post("/transactions", data), {
