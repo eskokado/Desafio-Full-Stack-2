@@ -78,18 +78,20 @@ export const FormFilterTransactionModalContent = () => {
         defaultValues={defaultValues}
         register={register}
       />
-      <GroupInput
+      <GroupInputMask
         label="Data a partir de"
-        placeholder="Digite aqui a data inicial"
+        placeholder="Digite aqui a data inicial (DD/MM/YYYY)"
         helperMessage={errors.dateFrom?.message && errors.dateFrom.message}
+        mask="99/99/9999"
         field="dateFrom"
         defaultValues={defaultValues}
         register={register}
       />
-      <GroupInput
+      <GroupInputMask
         label="Data até"
-        placeholder="Digite aqui a data final"
+        placeholder="Digite aqui a data final(DD/MM/YYYY)"
         helperMessage={errors.dateTo?.message && errors.dateTo.message}
+        mask="99/99/9999"
         field="dateTo"
         defaultValues={defaultValues}
         register={register}
