@@ -12,15 +12,12 @@ export const TransactionContext = createContext()
 export const TransactionProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const [transaction, setTransaction] = useState(null);
+  const [cartTransaction, setCartTransaction] = useState(null);
   const [transactions, setTransactions] = useState([]);
   const [showTransactionModal, setShowTransactionModal] = useState(false);
   const [showFilterTransactionModal, setShowFilterTransactionModal] = useState(false);
+  const [showCartTransactionModal, setShowCartTransactionModal] = useState(false);
   const { user } = useContext(UserContext);
-
-
-  useEffect(() => {
-    setTransactions(user?.transactions ? user.transactions : []);
-  }, [user]);
 
 
   const onListTransaction = async (data) => {
@@ -41,6 +38,23 @@ export const TransactionProvider = ({ children }) => {
     try {
       const response = await api.get("/transactions", { params: data });
       setTransactions(response.data.transactions);
+    } catch (error) {
+      const notify = () => toast.error("Ocorreu um erro ao consultar transações");
+      notify();
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const onCartTransaction = async () => {
+    const token = localStorage.getItem("@NEX_TOKEN");
+    api.defaults.headers.user_access_token = `${token}`;
+    setLoading(true);
+
+    try {
+      const response = await api.get("/transactions/cart");
+      setCartTransaction(response.data.data[0]);
+      console.log(cartTransaction)
     } catch (error) {
       const notify = () => toast.error("Ocorreu um erro ao consultar transações");
       notify();
@@ -119,16 +133,21 @@ export const TransactionProvider = ({ children }) => {
         loading,
         showTransactionModal,
         showFilterTransactionModal,
+        showCartTransactionModal,
         transaction,
+        cartTransaction,
         setTransaction,
+        setCartTransaction,
         transactions,
         setTransactions,
         setShowTransactionModal,
         setShowFilterTransactionModal,
+        setShowCartTransactionModal,
         onCreateTransaction,
         onUpdateTransaction,
         onRemoveTransaction,
         onListTransaction,
+        onCartTransaction,
       }}
     >
       {children}
