@@ -74,6 +74,10 @@ export const TransactionProvider = ({ children }) => {
   const onUpdateTransaction = async (data) => {
     const token = localStorage.getItem("@NEX_TOKEN");
     api.defaults.headers.user_access_token = `${token}`;
+
+    data.value = removeMaskCurrency(data.value)    
+    data.point = removeMaskInt(data.point)
+
     setLoading(true);
     try {
       const token = localStorage.getItem("@NEX_TOKEN");
