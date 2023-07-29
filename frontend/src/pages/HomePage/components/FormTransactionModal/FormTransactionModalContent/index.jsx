@@ -8,6 +8,7 @@ import { Button } from "../../../../../styles/buttons";
 import { useContext } from "react";
 import { TransactionContext } from "../../../../../contexts/TransactionContext";
 import { GroupInputMask } from '../../../../../components/GroupInputMask'
+import { GroupInputCurrency } from '../../../../../components/GroupInputCurrency'
 
 export const FormTransactionModalContent = () => {
   const {
@@ -84,15 +85,16 @@ export const FormTransactionModalContent = () => {
         defaultValues={defaultValues}
         register={register}
       />
-      <GroupInput
+      <GroupInputMask
         label="Pontos"
         placeholder="Digite aqui os pontos"
+        mask="999999999999"
         helperMessage={errors.point?.message && errors.point.message}
         field="point"
         defaultValues={defaultValues}
         register={register}
       />
-      <GroupInput
+      <GroupInputCurrency
         label="Valor"
         placeholder="Digite aqui os valores"
         helperMessage={errors.value?.message && errors.value.message}

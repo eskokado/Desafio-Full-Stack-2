@@ -8,6 +8,7 @@ import { Button } from "../../../../../styles/buttons";
 import { useContext } from "react";
 import { TransactionContext } from "../../../../../contexts/TransactionContext";
 import { GroupInputMask } from '../../../../../components/GroupInputMask'
+import { GroupInputCurrency } from '../../../../../components/GroupInputCurrency'
 
 export const FormFilterTransactionModalContent = () => {
   const {
@@ -93,7 +94,7 @@ export const FormFilterTransactionModalContent = () => {
         defaultValues={defaultValues}
         register={register}
       />
-      <GroupInput
+      <GroupInputCurrency
         label="Valor a partir de"
         placeholder="Digite aqui o valor inicial"
         helperMessage={errors.valueFrom?.message && errors.valueFrom.message}
@@ -101,7 +102,7 @@ export const FormFilterTransactionModalContent = () => {
         defaultValues={defaultValues}
         register={register}
       />
-      <GroupInput
+      <GroupInputCurrency
         label="Valor até"
         placeholder="Digite aqui o valor final"
         helperMessage={errors.valueTo?.message && errors.valueTo.message}
