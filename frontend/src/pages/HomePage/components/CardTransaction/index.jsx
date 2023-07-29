@@ -14,7 +14,19 @@ export const CardTransaction = ({ transaction }) => {
     <StyledCardTransaction onClick={handleShowModal}>
       <div>
         <Typography fonttype="title3" fontcolor="grey0">
-          {transaction.title}
+          {transaction.cpf}
+        </Typography>
+        <Typography fonttype="headline" fontcolor="grey1">
+          {transaction.description}
+        </Typography>
+        <Typography fonttype="headline" fontcolor="grey1">
+          {transaction.date}
+        </Typography>
+        <Typography fonttype="headline" fontcolor="grey1">
+          {transaction.point}
+        </Typography>
+        <Typography fonttype="headline" fontcolor="grey1">
+          {transaction.value}
         </Typography>
         <Typography fonttype="headline" fontcolor="grey1">
           {transaction.status}

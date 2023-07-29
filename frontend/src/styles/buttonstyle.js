@@ -25,15 +25,18 @@ export const buttonstyle = css`
       return css`
         padding: 0 2.2rem;
         height: 4.8rem;
+        margin-left: 2rem;
       `;
     } else if (buttonstyle === "small") {
       return css`
         padding: 0 1.6rem;
         height: 3.2rem;
+        margin-left: 2rem;
       `;
     } else if (buttonstyle === "icon") {
       return css`
         height: 3.2rem;
+        margin-left: 2rem;
       `;
     }
   }}

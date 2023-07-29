@@ -12,6 +12,7 @@ export const TransactionProvider = ({ children }) => {
   const [transaction, setTransaction] = useState(null);
   const [transactions, setTransactions] = useState([]);
   const [showTransactionModal, setShowTransactionModal] = useState(false);
+  const [showFilterTransactionModal, setShowFilterTransactionModal] = useState(false);
   const { user } = useContext(UserContext);
 
 
@@ -84,11 +85,13 @@ export const TransactionProvider = ({ children }) => {
       value={{
         loading,
         showTransactionModal,
+        showFilterTransactionModal,
         transaction,
         setTransaction,
         transactions,
         setTransactions,
         setShowTransactionModal,
+        setShowFilterTransactionModal,
         onCreateTransaction,
         onUpdateTransaction,
         onRemoveTransaction,
