@@ -21,17 +21,31 @@ export const TransactionProvider = ({ children }) => {
   }, [user]);
 
 
+  const onListTransaction = async (data) => {
+    const token = localStorage.getItem("@NEX_TOKEN");
+    api.defaults.headers.user_access_token = `${token}`;
+    setLoading(true);
+    try {
+      const response = await api.get("/transactions", { params: data });
+      setTransactions(response.data.transactions);
+    } catch (error) {
+      const notify = () => toast.error("Ocorreu um erro ao consultar transações");
+      notify();
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const onCreateTransaction = async (data) => {
     const token = localStorage.getItem("@NEX_TOKEN");
     api.defaults.headers.user_access_token = `${token}`;
     setLoading(true);
     try {
-      await toast.promise(api.post("/transactions/create", data), {
+      await toast.promise(api.post("/transactions", data), {
         pending: "Salvando a transação",
         success: "Transação salvo com sucesso!",
       });
-      const response = await api.get("users/me");
-      setTransactions(response.data.transactions);
+      await onListTransaction()
     } catch (error) {
       const notify = () => toast.error("Ocorreu um erro ao cadastrar");
       notify();
@@ -51,8 +65,7 @@ export const TransactionProvider = ({ children }) => {
         pending: "Atualizando a transação",
         success: "Transação alterado com sucesso!",
       });
-      const response = await api.get("/users/me");
-      setTransaction(response.data.transaction);
+      await onListTransaction()
     } catch (error) {
       const notify = () => toast.error("Ocorreu um erro ao atualizar");
       notify();
@@ -70,8 +83,7 @@ export const TransactionProvider = ({ children }) => {
         pending: "Deletando a transação",
         success: "Transação deletado com sucesso!",
       });
-      const response = await api.get("users/me");
-      setTransactions(response.data.transactions);
+      await onListTransaction()
     } catch (error) {
       const notify = () => toast.error("Ocorreu um erro ao deletar");
       notify();
@@ -95,6 +107,7 @@ export const TransactionProvider = ({ children }) => {
         onCreateTransaction,
         onUpdateTransaction,
         onRemoveTransaction,
+        onListTransaction,
       }}
     >
       {children}
