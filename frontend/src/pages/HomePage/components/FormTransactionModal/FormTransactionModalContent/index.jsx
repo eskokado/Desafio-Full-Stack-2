@@ -18,17 +18,19 @@ export const FormTransactionModalContent = () => {
     onRemoveTransaction,
   } = useContext(TransactionContext);
 
-  const formSchema = transaction
-    ? yup.object().shape({
-        status: yup.string().required("Nível é obrigatório"),
-      })
-    : yup.object().shape({
-        description: yup.string().required("Título é obrigatório"),
-        status: yup.string().required("Nível é obrigatório"),
-      });
+  const formSchema = yup.object().shape({
+    cpf: yup.string().required("CPF é obrigatório"),
+    description: yup.string().required("Descrição é obrigatório"),
+    point: yup.string().required("Pontos é obrigatório"),
+    value: yup.string().required("Valor é obrigatório"),
+    status: yup.string().required("Nível é obrigatório"),
+  });
 
   const defaultValues = {
+    cpf: transaction?.cpf ?? "",
     description: transaction?.description ?? "",
+    point: transaction?.point ?? "",
+    value: transaction?.value ?? "",
     status: transaction?.status ?? "",
   };
 
@@ -43,7 +45,6 @@ export const FormTransactionModalContent = () => {
 
   const onSubmitFunction = (data) => {
     if (transaction) {
-      delete data.description;
       onUpdateTransaction(data);
     } else {
       onCreateTransaction(data);
@@ -66,11 +67,34 @@ export const FormTransactionModalContent = () => {
   return (
     <StyledFormTransactionModalContent onSubmit={handleSubmit(onSubmitFunction)}>
       <GroupInput
+        label="CPF"
+        placeholder="Digite aqui o CPF"
+        helperMessage={errors.cpf?.message && errors.cpf.message}
+        field="cpf"
+        defaultValues={defaultValues}
+        register={register}
+      />
+      <GroupInput
         label="Descrição"
         placeholder="Digite aqui a descrição"
-        helperMessage={errors.title?.message && errors.title.message}
+        helperMessage={errors.description?.message && errors.description.message}
         field="description"
-        disabled={transaction ? true : false}
+        defaultValues={defaultValues}
+        register={register}
+      />
+      <GroupInput
+        label="Pontos"
+        placeholder="Digite aqui os pontos"
+        helperMessage={errors.point?.message && errors.point.message}
+        field="point"
+        defaultValues={defaultValues}
+        register={register}
+      />
+      <GroupInput
+        label="Valor"
+        placeholder="Digite aqui os valores"
+        helperMessage={errors.value?.message && errors.value.message}
+        field="value"
         defaultValues={defaultValues}
         register={register}
       />
