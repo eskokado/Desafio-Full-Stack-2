@@ -114,5 +114,23 @@ module.exports = {
         message: e.message,
       })
     }
+  },
+  async cart(req, res) {
+    try {
+      const user_id = req.user.id
+      const data = await db('transactions').sum({pointAproved: 'point'}).sum({totalAproved: 'value'}).where('user_id', user_id).where('status', 'Aprovado')
+      if (!data) {
+        return res.status(404).send({
+          message: 'Not found cart',
+        })
+      }  
+      return res.status(200).send({
+        data,
+      })     
+    } catch (e) {
+      return res.status(500).send({
+        message: e.message,
+      })
+    }
   }
 }
