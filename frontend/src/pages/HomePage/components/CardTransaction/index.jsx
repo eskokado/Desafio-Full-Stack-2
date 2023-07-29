@@ -10,27 +10,41 @@ export const CardTransaction = ({ transaction }) => {
     setShowTransactionModal(true);
   };
 
+
+
   return (
     <StyledCardTransaction onClick={handleShowModal}>
       <div>
-        <Typography fonttype="title3" fontcolor="grey0">
-          {transaction.cpf}
-        </Typography>
-        <Typography fonttype="headline" fontcolor="grey1">
-          {transaction.description}
-        </Typography>
-        <Typography fonttype="headline" fontcolor="grey1">
-          {transaction.date}
-        </Typography>
-        <Typography fonttype="headline" fontcolor="grey1">
-          {transaction.point}
-        </Typography>
-        <Typography fonttype="headline" fontcolor="grey1">
-          {transaction.value}
-        </Typography>
-        <Typography fonttype="headline" fontcolor="grey1">
-          {transaction.status}
-        </Typography>
+        <div className='cpf'>
+          <Typography fonttype="title3" fontcolor="grey0">
+            {transaction.cpf}
+          </Typography>
+        </div>
+        <div className='description'>
+          <Typography fonttype="headline" fontcolor="grey1">
+            {transaction.description}
+          </Typography>
+        </div>
+        <div className='date'>
+          <Typography fonttype="headline" fontcolor="grey1">
+            {transaction.date}
+          </Typography>
+        </div>
+        <div className='point'>
+          <Typography fonttype="headline" fontcolor="grey1">
+            {transaction.point}
+          </Typography>
+        </div>
+        <div className='value'>
+          <Typography fonttype="headline" fontcolor="grey1">
+            {transaction.value}
+          </Typography>
+        </div>
+        <div className='status'>
+          <Typography fonttype="headline" fontcolor="grey1">
+            {transaction.status}
+          </Typography>
+        </div>
       </div>
     </StyledCardTransaction>
   );

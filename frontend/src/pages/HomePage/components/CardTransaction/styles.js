@@ -15,5 +15,30 @@ export const StyledCardTransaction = styled.li`
     justify-content: space-between;
     align-items: center;
     width: 100%;
+    & > .cpf {
+      width: 15%;
+      margin-left: 2rem;
+    }
+    & > .description {
+      width: 35%;
+      margin-left: 2rem;
+    }
+    & > .date {
+      width: 15%;
+      margin-left: 2rem;
+    }
+    & > .point {
+      width: 15%;
+      margin-left: 2rem;
+    }
+    & > .value {
+      width: 15%;
+      text-align: end;
+      margin-left: 2rem;
+    }
+    & > .status {
+      width: 15%;
+      margin-left: 2rem;
+    }
   }
 `;
