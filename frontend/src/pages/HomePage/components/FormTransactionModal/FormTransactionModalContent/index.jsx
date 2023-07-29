@@ -7,6 +7,7 @@ import { GroupSelect } from "../../../../../components/GroupSelect";
 import { Button } from "../../../../../styles/buttons";
 import { useContext } from "react";
 import { TransactionContext } from "../../../../../contexts/TransactionContext";
+import { GroupInputMask } from '../../../../../components/GroupInputMask'
 
 export const FormTransactionModalContent = () => {
   const {
@@ -66,9 +67,10 @@ export const FormTransactionModalContent = () => {
 
   return (
     <StyledFormTransactionModalContent onSubmit={handleSubmit(onSubmitFunction)}>
-      <GroupInput
+      <GroupInputMask
         label="CPF"
         placeholder="Digite aqui o CPF"
+        mask="999.999.999-99"
         helperMessage={errors.cpf?.message && errors.cpf.message}
         field="cpf"
         defaultValues={defaultValues}
