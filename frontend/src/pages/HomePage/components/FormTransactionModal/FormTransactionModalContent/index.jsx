@@ -1,12 +1,12 @@
-import { GroupInput } from "../../../../../components/GroupInput";
-import { StyledFormTransactionModalContent } from "./styles";
-import * as yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { useForm } from "react-hook-form";
-import { GroupSelect } from "../../../../../components/GroupSelect";
-import { Button } from "../../../../../styles/buttons";
-import { useContext } from "react";
-import { TransactionContext } from "../../../../../contexts/TransactionContext";
+import { GroupInput } from "../../../../../components/GroupInput"
+import { StyledFormTransactionModalContent } from "./styles"
+import * as yup from "yup"
+import { yupResolver } from "@hookform/resolvers/yup"
+import { useForm } from "react-hook-form"
+import { GroupSelect } from "../../../../../components/GroupSelect"
+import { Button } from "../../../../../styles/buttons"
+import { useContext } from "react"
+import { TransactionContext } from "../../../../../contexts/TransactionContext"
 import { GroupInputMask } from '../../../../../components/GroupInputMask'
 import { GroupInputCurrency } from '../../../../../components/GroupInputCurrency'
 
@@ -55,7 +55,10 @@ export const FormTransactionModalContent = () => {
   };
 
   const handleRemove = (id) => {
-    onRemoveTransaction(id);
+    if (window.confirm("Delete transaction?"))
+    { 
+      onRemoveTransaction(id);
+    }
     setShowTransactionModal(false);
   };
 

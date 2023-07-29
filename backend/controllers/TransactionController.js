@@ -96,5 +96,23 @@ module.exports = {
         message: e.message,
       })
     }
+  },
+  async delete(req, res) {
+    try {
+      const user_id = req.user.id
+      const id = req.params.id
+      const transaction = await db('transactions').select('*').where('id', id).where('user_id', user_id)
+      if (!transaction) {
+        return res.status(404).send({
+          message: 'Not found transaction',
+        })
+      }  
+      await db('transactions').delete().where('id', id)
+      return res.status(204).send()              
+    } catch (e) {
+      return res.status(500).send({
+        message: e.message,
+      })
+    }
   }
 }
