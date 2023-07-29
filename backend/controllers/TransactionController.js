@@ -3,16 +3,16 @@ const db = require('../db')
 module.exports = {
   async index(req, res) {
     try {
-      const dataFrom = req.query.dataFrom
-      const dataTo = req.query.dataTo
+      const dateFrom = req.query.dateFrom
+      const dateTo = req.query.dateTo
       const valueFrom = req.query.valueFrom
       const valueTo = req.query.valueTo
       const status = req.query.status 
       const cpf = req.query.cpf
       const description = req.query.description
       const transactions = await db('transactions').select('*').where((builder) => {
-        if ((dataFrom) && (dataTo) && (dataTo >= dataFrom)) 
-          builder.whereBetween('date', [dataFrom, dataTo])           
+        if ((dateFrom) && (dateTo) && (dateTo >= dateFrom)) 
+          builder.whereBetween('date', [dateFrom, dateTo])           
         if (status) builder.where('status', status)
         if (req.user.type === 'User') {
           builder.where('user_id', req.user.id)  
