@@ -17,6 +17,7 @@ module.exports = {
           if (is_valid) {
             const user_id = user.id 
             const type = user.type
+            delete user.password
             const token = jwt.sign({ user_id, email, type }, process.env.TOKEN_KEY)
             return res.status(200).send({
               token: token,
