@@ -11,4 +11,7 @@ export const StyledFormTransactionModalContent = styled.form`
     display: flex;
     justify-content: space-between;
   }
+  & > button {
+    margin: 0;
+  }
 `;

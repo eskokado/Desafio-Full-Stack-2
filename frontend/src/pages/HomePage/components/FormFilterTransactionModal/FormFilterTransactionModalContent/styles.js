@@ -11,4 +11,7 @@ export const StyledFormFilterTransactionModalContent = styled.form`
     display: flex;
     justify-content: space-between;
   }
+  & > button {
+    margin: 0;
+  }
 `;
