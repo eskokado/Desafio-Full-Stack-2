@@ -30,7 +30,7 @@ export const UserProvider = ({ children }) => {
           user_access_token: `${token}`,
         },
       });
-      setUser(data);
+      setUser(data.user);
       navigate("/home");
     } catch (error) {
       localStorage.removeItem("@NEX_TOKEN");
