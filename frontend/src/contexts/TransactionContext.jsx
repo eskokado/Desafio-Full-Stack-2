@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import { api } from "../services/api";
 import { UserContext } from "./UserContext";
 import { removeMaskCurrency, removeMaskInt } from '../shared/utils/removeMasks'
+import { dateDayEnd, dateDayStart } from '../shared/utils/dateInitialFinal'
 
 export const TransactionContext = createContext()
 
@@ -30,8 +31,13 @@ export const TransactionProvider = ({ children }) => {
     if (data?.valueFrom && data?.valueTo) {
       data.valueFrom = removeMaskCurrency(data.valueFrom)    
       data.valueTo = removeMaskCurrency(data.valueTo)    
-      console.log("onListTransaction", data)
     }
+
+    if (data?.dateFrom && data?.dateTo) {
+      data.dateFrom = dateDayStart(data.dateFrom)    
+      data.dateTo = dateDayEnd(data.dateTo)    
+    }
+
     try {
       const response = await api.get("/transactions", { params: data });
       setTransactions(response.data.transactions);
