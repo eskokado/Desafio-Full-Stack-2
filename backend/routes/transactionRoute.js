@@ -6,6 +6,7 @@ const router = express.Router()
 
 router.get('/', auth_middleware, TransactionController.index)
 router.post('/', auth_middleware, TransactionController.create)
+router.put('/:id', auth_middleware, TransactionController.update)
 
 module.exports = router
 

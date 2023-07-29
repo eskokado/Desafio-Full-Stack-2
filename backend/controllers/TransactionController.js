@@ -60,5 +60,41 @@ module.exports = {
         message: e.message,
       })
     }
+  },
+  async update(req, res) {
+    try {
+      const {cpf, description, point, value, status} = req.body
+      if (!cpf || !description || !point || !value) {
+        return res.status(400).send({
+          message: 'Please fill the fields',
+        })
+      } else {
+        const user_id = req.user.id
+        const id = req.params.id
+        const transaction = await db('transactions').select('*').where('id', id).where('user_id', user_id)
+        if (!transaction) {
+          return res.status(404).send({
+            message: 'Not found transaction',
+          })
+        }  
+        const result = await db('transactions').update({
+          cpf, description, point, value, status
+        }).where('id', id)
+        const data = await db('transactions').select('*').where('id', id).first()
+        if (result) {
+          return res.status(200).send({
+            data,
+          })              
+        } else {
+          return res.status(400).send({
+            message: 'Some problem occurred'
+          })    
+        }
+      }
+    } catch (e) {
+      return res.status(500).send({
+        message: e.message,
+      })
+    }
   }
 }
