@@ -54,7 +54,6 @@ export const TransactionProvider = ({ children }) => {
     try {
       const response = await api.get("/transactions/cart");
       setCartTransaction(response.data.data[0]);
-      console.log(cartTransaction)
     } catch (error) {
       const notify = () => toast.error("Ocorreu um erro ao consultar transações");
       notify();
